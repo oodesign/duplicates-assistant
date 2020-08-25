@@ -45,7 +45,7 @@ const duplicateSymbols: RuleDefinition = {
     if (foreignDuplicates > 0) context.utils.report('🔶 There ' + (foreignDuplicates > 1 ? 'are ' : 'is ') + foreignDuplicates + ' duplicate symbol' + (foreignDuplicates > 1 ? 's' : '') + ' in external libraries related to this file.');
 
   },
-  name: 'oodesign-duplicates-assistant/duplicate-symbols',
+  name: 'duplicates-assistant/duplicate-symbols',
   title: '1. Duplicate symbols',
   description: 'Reports duplicate symbols in your design file.',
 }
@@ -100,7 +100,7 @@ const duplicateLayerStyles: RuleDefinition = {
     if (foreignDuplicates > 0) context.utils.report('🔶 There ' + (foreignDuplicates > 1 ? 'are ' : 'is ') + foreignDuplicates + ' duplicate layer style' + (foreignDuplicates > 1 ? 's' : '') + ' in external libraries related to this file.');
 
   },
-  name: 'oodesign-duplicates-assistant/duplicate-layer-styles',
+  name: 'duplicates-assistant/duplicate-layer-styles',
   title: '2. Duplicate layer styles',
   description: 'Reports duplicate layer styles in your design file and linked libraries.',
 }
@@ -155,20 +155,20 @@ const duplicateTextStyles: RuleDefinition = {
     if (foreignDuplicates > 0) context.utils.report('🔶 There ' + (foreignDuplicates > 1 ? 'are ' : 'is ') + foreignDuplicates + ' duplicate text style' + (foreignDuplicates > 1 ? 's' : '') + ' in external libraries related to this file.');
 
   },
-  name: 'oodesign-duplicates-assistant/duplicate-text-styles',
+  name: 'duplicates-assistant/duplicate-text-styles',
   title: '3. Duplicate text styles',
   description: 'Reports duplicate text styles in your design file and linked libraries.',
 }
 
 const assistant: AssistantPackage = async () => {
   return {
-    name: 'oodesign-duplicates-assistant',
+    name: 'duplicates-assistant',
     rules: [duplicateSymbols, duplicateLayerStyles, duplicateTextStyles],
     config: {
       rules: {
-        'oodesign-duplicates-assistant/duplicate-symbols': { active: true },
-        'oodesign-duplicates-assistant/duplicate-layer-styles': { active: true },
-        'oodesign-duplicates-assistant/duplicate-text-styles': { active: true }
+        'duplicates-assistant/duplicate-symbols': { active: true },
+        'duplicates-assistant/duplicate-layer-styles': { active: true },
+        'duplicates-assistant/duplicate-text-styles': { active: true }
       },
     },
   }
