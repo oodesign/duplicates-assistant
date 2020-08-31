@@ -94,7 +94,7 @@ const duplicateLayerStyles: RuleDefinition = {
     mixedDuplicates = (duplicates.filter((element) => element.local && element.foreign && element.number > 1)).length;
     foreignDuplicates = (duplicates.filter((element) => !element.local && element.foreign && element.number > 1)).length;
 
-    if (totalDuplicates > 0) context.utils.report('There ' + (totalDuplicates > 1 ? 'are ' : 'is ') + totalDuplicates + ' duplicate symbol' + (totalDuplicates > 1 ? 's' : '') + ' in your design.');
+    if (totalDuplicates > 0) context.utils.report('There ' + (totalDuplicates > 1 ? 'are ' : 'is ') + totalDuplicates + ' duplicate layer style' + (totalDuplicates > 1 ? 's' : '') + ' in your design.');
     if (localDuplicates > 0) context.utils.report('💎 There ' + (localDuplicates > 1 ? 'are ' : 'is ') + localDuplicates + ' duplicate layer style' + (localDuplicates > 1 ? 's' : '') + ' in this file.');
     if (mixedDuplicates > 0) context.utils.report('💎🔶 There ' + (mixedDuplicates > 1 ? 'are ' : 'is ') + mixedDuplicates + ' layer style' + (mixedDuplicates > 1 ? 's' : '') + ' that exist in your file and in external libraries related to this file.');
     if (foreignDuplicates > 0) context.utils.report('🔶 There ' + (foreignDuplicates > 1 ? 'are ' : 'is ') + foreignDuplicates + ' duplicate layer style' + (foreignDuplicates > 1 ? 's' : '') + ' in external libraries related to this file.');
@@ -149,7 +149,7 @@ const duplicateTextStyles: RuleDefinition = {
     mixedDuplicates = (duplicates.filter((element) => element.local && element.foreign && element.number > 1)).length;
     foreignDuplicates = (duplicates.filter((element) => !element.local && element.foreign && element.number > 1)).length;
 
-    if (totalDuplicates > 0) context.utils.report('There ' + (totalDuplicates > 1 ? 'are ' : 'is ') + totalDuplicates + ' duplicate symbol' + (totalDuplicates > 1 ? 's' : '') + ' in your design.');
+    if (totalDuplicates > 0) context.utils.report('There ' + (totalDuplicates > 1 ? 'are ' : 'is ') + totalDuplicates + ' duplicate text style' + (totalDuplicates > 1 ? 's' : '') + ' in your design.');
     if (localDuplicates > 0) context.utils.report('💎 There ' + (localDuplicates > 1 ? 'are ' : 'is ') + localDuplicates + ' duplicate text style' + (localDuplicates > 1 ? 's' : '') + ' in this file.');
     if (mixedDuplicates > 0) context.utils.report('💎🔶 There ' + (mixedDuplicates > 1 ? 'are ' : 'is ') + mixedDuplicates + ' text style' + (mixedDuplicates > 1 ? 's' : '') + ' that exist in your file and in external libraries related to this file.');
     if (foreignDuplicates > 0) context.utils.report('🔶 There ' + (foreignDuplicates > 1 ? 'are ' : 'is ') + foreignDuplicates + ' duplicate text style' + (foreignDuplicates > 1 ? 's' : '') + ' in external libraries related to this file.');
