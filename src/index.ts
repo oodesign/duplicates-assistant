@@ -1,5 +1,43 @@
 import { AssistantPackage, RuleDefinition } from '@sketch-hq/sketch-assistant-types'
 
+
+const duplicateArtboards: RuleDefinition = {
+  rule: async (context) => {
+    interface Duplicate {
+      name: string
+      artboards: any[]
+      number: number
+    }
+
+    var duplicates: Array<Duplicate> = [];
+
+    for (const artboard of context.utils.objects.artboard) {
+      var existingElement = duplicates.find((element) => element.name == artboard.name);
+      if (existingElement != null) {
+        existingElement.number++;
+        existingElement.artboards.push(artboard);
+      }
+      else
+        var initialArtboards: any[];
+      initialArtboards = [];
+      initialArtboards.push(artboard);
+      duplicates.push({ name: artboard.name, artboards: initialArtboards, number: 1 });
+    }
+
+    for (const duplicate of duplicates) {
+      if (duplicate.number > 1) {
+        for (const artboard of duplicate.artboards) {
+          context.utils.report("", artboard);
+        }
+      }
+    }
+
+  },
+  name: 'duplicates-assistant/duplicate-artboards',
+  title: '4. Duplicate artboards',
+  description: 'Reports duplicate artboards in your design file.',
+}
+
 const duplicateSymbols: RuleDefinition = {
   rule: async (context) => {
     interface Duplicate {
@@ -163,12 +201,13 @@ const duplicateTextStyles: RuleDefinition = {
 const assistant: AssistantPackage = async () => {
   return {
     name: 'duplicates-assistant',
-    rules: [duplicateSymbols, duplicateLayerStyles, duplicateTextStyles],
+    rules: [duplicateSymbols, duplicateLayerStyles, duplicateTextStyles, duplicateArtboards],
     config: {
       rules: {
         'duplicates-assistant/duplicate-symbols': { active: true },
         'duplicates-assistant/duplicate-layer-styles': { active: true },
-        'duplicates-assistant/duplicate-text-styles': { active: true }
+        'duplicates-assistant/duplicate-text-styles': { active: true },
+        'duplicates-assistant/duplicate-artboards': { active: true }
       },
     },
   }

@@ -9,3 +9,4 @@ tidier, and healthier design files.
 - [Duplicate symbols](https://github.com/oodesign/duplicates-assistant/blob/main/src/Symbols.md)
 - [Duplicate layer styles](https://github.com/oodesign/duplicates-assistant/blob/main/src/LayerStyles.md)
 - [Duplicate text styles](https://github.com/oodesign/duplicates-assistant/blob/main/src/TextStyles.md)
+- [Duplicate artboards](https://github.com/oodesign/duplicates-assistant/blob/main/src/Artboards.md)
