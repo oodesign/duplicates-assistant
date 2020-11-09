@@ -53,22 +53,31 @@ const duplicateSymbols: RuleDefinition = {
     var mixedDuplicates = 0;
     var foreignDuplicates = 0;
 
+
+    const processedMasters = new Map();
+
     for (const symbol of context.utils.objects.symbolMaster) {
-      var existingElement = duplicates.find((element) => element.name == symbol.name);
-      if (existingElement != null)
-        existingElement.number++;
-      else
-        duplicates.push({ name: symbol.name, number: 1, local: true, foreign: false });
+      if (!processedMasters.has(symbol.do_objectID)) {
+        var existingElement = duplicates.find((element) => element.name == symbol.name);
+        if (existingElement != null)
+          existingElement.number++;
+        else
+          duplicates.push({ name: symbol.name, number: 1, local: true, foreign: false });
+      }
     }
 
     for (const symbol of context.utils.foreignObjects.symbolMaster) {
-      var existingElement = duplicates.find((element) => element.name == symbol.name)
-      if (existingElement != null) {
-        existingElement.number++;
-        existingElement.foreign = true;
-      }
-      else {
-        duplicates.push({ name: symbol.name, number: 1, local: false, foreign: true })
+      if (!processedMasters.has(symbol.do_objectID)) {
+        var existingElement = duplicates.find((element) => element.name == symbol.name)
+        if (existingElement != null) {
+          existingElement.number++;
+          existingElement.foreign = true;
+        }
+        else {
+          duplicates.push({ name: symbol.name, number: 1, local: false, foreign: true })
+        }
+
+        processedMasters.set(symbol.do_objectID, true);
       }
     }
 
@@ -103,6 +112,9 @@ const duplicateLayerStyles: RuleDefinition = {
     var mixedDuplicates = 0;
     var foreignDuplicates = 0;
 
+
+    const processedStyles = new Map();
+
     for (const style of context.utils.objects.sharedStyle) {
       if (style.value.textStyle == undefined) {
         var existingElement = duplicates.find((element) => element.name == style.name)
@@ -115,15 +127,18 @@ const duplicateLayerStyles: RuleDefinition = {
     }
 
     for (const style of context.utils.foreignObjects.sharedStyle) {
-      if (style.value.textStyle == undefined) {
-        var existingElement = duplicates.find((element) => element.name == style.name)
-        if (existingElement != null) {
-          existingElement.number++;
-          existingElement.foreign = true;
+      if (!processedStyles.has(style.do_objectID)) {
+        if (style.value.textStyle == undefined) {
+          var existingElement = duplicates.find((element) => element.name == style.name)
+          if (existingElement != null) {
+            existingElement.number++;
+            existingElement.foreign = true;
+          }
+          else {
+            duplicates.push({ name: style.name, number: 1, local: false, foreign: true })
+          }
         }
-        else {
-          duplicates.push({ name: style.name, number: 1, local: false, foreign: true })
-        }
+        processedStyles.set(style.do_objectID, true);
       }
     }
 
@@ -158,6 +173,8 @@ const duplicateTextStyles: RuleDefinition = {
     var mixedDuplicates = 0;
     var foreignDuplicates = 0;
 
+    const processedStyles = new Map();
+
     for (const style of context.utils.objects.sharedStyle) {
       if (style.value.textStyle != undefined) {
         var existingElement = duplicates.find((element) => element.name == style.name)
@@ -170,15 +187,18 @@ const duplicateTextStyles: RuleDefinition = {
     }
 
     for (const style of context.utils.foreignObjects.sharedStyle) {
-      if (style.value.textStyle != undefined) {
-        var existingElement = duplicates.find((element) => element.name == style.name)
-        if (existingElement != null) {
-          existingElement.number++;
-          existingElement.foreign = true;
+      if (!processedStyles.has(style.do_objectID)) {
+        if (style.value.textStyle != undefined) {
+          var existingElement = duplicates.find((element) => element.name == style.name)
+          if (existingElement != null) {
+            existingElement.number++;
+            existingElement.foreign = true;
+          }
+          else {
+            duplicates.push({ name: style.name, number: 1, local: false, foreign: true })
+          }
         }
-        else {
-          duplicates.push({ name: style.name, number: 1, local: false, foreign: true })
-        }
+        processedStyles.set(style.do_objectID, true);
       }
     }
 
