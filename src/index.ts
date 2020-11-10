@@ -54,30 +54,24 @@ const duplicateSymbols: RuleDefinition = {
     var foreignDuplicates = 0;
 
 
-    const processedMasters = new Map();
 
     for (const symbol of context.utils.objects.symbolMaster) {
-      if (!processedMasters.has(symbol.do_objectID)) {
-        var existingElement = duplicates.find((element) => element.name == symbol.name);
-        if (existingElement != null)
-          existingElement.number++;
-        else
-          duplicates.push({ name: symbol.name, number: 1, local: true, foreign: false });
-      }
+      var existingElement = duplicates.find((element) => element.name == symbol.name);
+      if (existingElement != null)
+        existingElement.number++;
+      else
+        duplicates.push({ name: symbol.name, number: 1, local: true, foreign: false });
     }
 
-    for (const symbol of context.utils.foreignObjects.symbolMaster) {
-      if (!processedMasters.has(symbol.do_objectID)) {
-        var existingElement = duplicates.find((element) => element.name == symbol.name)
-        if (existingElement != null) {
-          existingElement.number++;
-          existingElement.foreign = true;
-        }
-        else {
-          duplicates.push({ name: symbol.name, number: 1, local: false, foreign: true })
-        }
-
-        processedMasters.set(symbol.do_objectID, true);
+    for (const msimmutablesymbol of context.utils.foreignObjects.MSImmutableForeignSymbol) {
+      var symbol = msimmutablesymbol.symbolMaster;
+      var existingElement = duplicates.find((element) => element.name == symbol.name)
+      if (existingElement != null) {
+        existingElement.number++;
+        existingElement.foreign = true;
+      }
+      else {
+        duplicates.push({ name: symbol.name, number: 1, local: false, foreign: true })
       }
     }
 
